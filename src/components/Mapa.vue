@@ -26,15 +26,19 @@ export default {
 
     const recolherItem = (row, col) => {
       if (mapa.value[row][col] === 3) {
-        console.log('Item coletado!');
         showPopup.value = true;
       }
+    };
+
+    const closePopup = () => {
+      showPopup.value = false;
     };
 
     return {
       mapa,
       recolherItem,
-      showPopup
+      showPopup,
+      closePopup
     };
   }
 };
@@ -58,7 +62,7 @@ export default {
       ></div>
     </div>
   </div>
-  <ContainerItem v-if="showPopup" />
+  <ContainerItem v-model:showPopup="showPopup" />
 </template>
 
 
