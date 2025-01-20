@@ -1,49 +1,58 @@
 <script>
-import { ref } from 'vue';
-import Popup from './Popup.vue';
-import ContainerItem from './ContainerItem.vue';
+import { ref } from "vue";
+import Popup from "./Popup.vue";
+import ContainerItem from "./ContainerItem.vue";
+import Inventario from "./Inventario.vue";
+import itensBanco from "../data/itensBanco";
 
 export default {
   components: {
     Popup,
-    ContainerItem
+    ContainerItem,
+    Inventario,
   },
   setup() {
     const mapa = ref([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 2, 2, 2, 1, 1, 1, 1, 0],
-      [0, 0, 2, 0, 2, 1, 1, 0, 1, 0],
+      [10, 0, 2, 0, 2, 1, 1, 0, 1, 0],
       [0, 0, 2, 0, 2, 1, 1, 0, 1, 0],
       [0, 0, 2, 0, 2, 0, 0, 0, 1, 0],
-      [3, 0, 2, 0, 2, 2, 2, 0, 0, 0],
+      [13, 0, 2, 0, 2, 2, 2, 0, 0, 20],
       [0, 0, 2, 0, 2, 0, 2, 2, 2, 2],
       [0, 0, 2, 0, 2, 0, 2, 0, 0, 0],
       [0, 0, 2, 0, 2, 2, 2, 2, 0, 0],
-      [0, 3, 2, 2, 2, 2, 2, 2, 2, 2]
+      [0, 14, 2, 2, 2, 2, 2, 2, 2, 2],
     ]);
 
     const showPopup = ref(false);
+    const currentItem = ref(null);
 
     const recolherItem = (row, col) => {
-      if (mapa.value[row][col] === 3) {
+      const itemId = mapa.value[row][col];
+      const itemIndex = itensBanco.findIndex((item) => item.id === itemId);
+      if (itemIndex !== -1 && !itensBanco[itemIndex].coletado) {
+        currentItem.value = itensBanco[itemIndex];
         showPopup.value = true;
       }
     };
 
     const closePopup = () => {
       showPopup.value = false;
+      currentItem.value = null;
     };
 
     return {
       mapa,
+      itensBanco,
       recolherItem,
       showPopup,
-      closePopup
+      closePopup,
+      currentItem,
     };
-  }
+  },
 };
 </script>
-
 
 <template>
   <div class="mapa">
@@ -56,26 +65,33 @@ export default {
           grama: cell === 0,
           pista: cell === 1,
           agua: cell === 2,
-          item: cell === 3
+          item: itensBanco.some((item) => item.id === cell && !item.coletado),
         }"
         @click="recolherItem(rowIndex, colIndex)"
-      ></div>
+      >
+        <img
+          v-if="itensBanco.some((item) => item.id === cell && !item.coletado)"
+          :src="itensBanco.find((item) => item.id === cell && !item.coletado).imagem"
+          :alt="itensBanco.find((item) => item.id === cell && !item.coletado).nome"
+          class="item-imagem"
+        />
+      </div>
     </div>
   </div>
-  <ContainerItem v-model:showPopup="showPopup" />
+  <ContainerItem v-model:showPopup="showPopup" :item="currentItem" />
+  <Inventario />
 </template>
-
 
 <style scoped>
 .mapa {
   display: grid;
-  grid-template-columns: repeat(10, 80px); 
+  grid-template-columns: repeat(10, 80px);
   width: 800px;
   gap: 0px; /* Adiciona espaçamento entre as células */
-  background-color: transparent;
+  background-color: green;
 }
 .row {
-  display: contents; 
+  display: contents;
 }
 .cell {
   width: 80px;
@@ -85,7 +101,7 @@ export default {
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
-  color: white;
+
 }
 .cell.grama {
   background-color: green;
@@ -97,7 +113,10 @@ export default {
   background-color: rgb(13, 218, 207);
   color: black; /* Ajusta a cor do texto para melhor contraste */
 }
-.cell.item {
-  background-color: yellow;
+
+.item-imagem {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 </style>

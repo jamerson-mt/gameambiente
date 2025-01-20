@@ -1,5 +1,6 @@
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref, defineProps, defineEmits, computed } from "vue";
+import itensBanco from "../data/itensBanco";
 
 const props = defineProps({
   itemDescription: {
@@ -31,7 +32,14 @@ const props = defineProps({
       { id: 3, text: "Opção 3" },
     ],
   },
+  item: {
+    type: Object,
+    required: false,
+    default: null,
+  },
 });
+
+console.log(props.item)
 
 const emit = defineEmits(['update:showPopup']);
 
@@ -42,6 +50,21 @@ const selectOption = (option) => {
 const closePopup = () => {
   emit('update:showPopup', false);
 };
+
+const similarItems = computed(() => {
+  if (!props.item) return [];
+  return itensBanco.filter(bancoItem => bancoItem.tipo === props.item.tipo && bancoItem.id !== props.item.id);
+});
+
+const coletarItem = () => {
+  if (props.item) {
+    const itemIndex = itensBanco.findIndex((item) => item.id === props.item.id);
+    if (itemIndex !== -1) {
+      itensBanco[itemIndex].coletado = true;
+      closePopup();
+    }
+  }
+};
 </script>
 <template>
   <div>
@@ -50,9 +73,9 @@ const closePopup = () => {
       <div class="content">
        
         <div class="descricao-item">
-          <img src="../../public/cadeira.png" alt="cadeira" />
+          <img :src="'../../'+ props.item.imagem " alt="cadeira" />
           <div class="descricao-item-text">
-            <h2>{{ props.itemDescription }}</h2>
+            <h2>{{ props.item.nome }}</h2>
             <h2>
               existem: <b>{{ props.qtdd }}</b>
             </h2>
@@ -71,10 +94,14 @@ const closePopup = () => {
           </button>
         </div>
 
-        <div class="itens-existentes">
-          <h3>itens semelhantes</h3>
-          <img src="../../public/sacola plastica.png" alt="lixeira organica" />
-          <img src="../../public/garrafaplastica.png" alt="lixeira organica" />
+        <button @click="coletarItem">Coletar</button>
+
+        <div class="itens-existentes" v-if="similarItems.length">
+          <h3>Itens semelhantes</h3>
+          <div v-for="item in similarItems" :key="item.id" class="similar-item">
+            <img :src="item.imagem" :alt="item.nome" />
+            <p>{{ item.nome }}</p>
+          </div>
         </div>
 
         <div class="lixeira">
@@ -150,19 +177,23 @@ img {
 
 .itens-existentes {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
   background-color: bisque;
   padding: 10px;
   border-radius: 15px;
   width: 50%;
-  justify-content: center;
-  align-items: center;
 }
-.itens-existentes img {
+.similar-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+.similar-item img {
   width: 50px;
   height: 50px;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 .lixeira {
   display: flex;
