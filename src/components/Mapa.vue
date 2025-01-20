@@ -13,16 +13,16 @@ export default {
   },
   setup() {
     const mapa = ref([
+      [0, 13, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 2, 2, 2, 1, 1, 1, 1, 0],
-      [10, 0, 2, 0, 2, 1, 1, 0, 1, 0],
-      [0, 0, 2, 0, 2, 1, 1, 0, 1, 0],
-      [0, 0, 2, 0, 2, 0, 0, 0, 1, 0],
-      [13, 0, 2, 0, 2, 2, 2, 0, 0, 20],
-      [0, 0, 2, 0, 2, 0, 2, 2, 2, 2],
-      [0, 0, 2, 0, 2, 0, 2, 0, 0, 0],
-      [0, 0, 2, 0, 2, 2, 2, 2, 0, 0],
-      [0, 14, 2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [13, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 14, 0, 0, 0, 0, 0, 0, 0, 0],
     ]);
 
     const showPopup = ref(false);
@@ -62,7 +62,7 @@ export default {
         :key="colIndex"
         class="cell"
         :class="{
-          grama: cell === 0,
+          null: cell === 0,
           pista: cell === 1,
           agua: cell === 2,
           item: itensBanco.some((item) => item.id === cell && !item.coletado),
@@ -88,7 +88,8 @@ export default {
   grid-template-columns: repeat(10, 80px);
   width: 800px;
   gap: 0px; /* Adiciona espaçamento entre as células */
-  background-color: green;
+  background-image: url("public/mapa.png");
+  background-size: cover;
 }
 .row {
   display: contents;
