@@ -1,35 +1,17 @@
 <script setup>
 import { ref, defineProps, defineEmits, computed, watch } from "vue";
-import itensBanco, { getItemImage, atualizarInventario as atualizarInventarioBanco } from "../data/itensBanco";
+import itensBanco, { getItemImage, coletarItem } from "../data/itensBanco";
 import { getRandomQuestion } from "../data/questions";
 import Inventario from "./Inventario.vue";
 
 const inventarioRef = ref(null);
 
 const props = defineProps({
-  itemDescription: {
-    type: String,
-    required: false,
-    default: "Descrição do item",
-  },
-  showPopup: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  qtdd: {
-    type: Number,
-    required: false,
-    default: 1,
-  },
-  question: {
-    type: String,
-    required: false,
-  },
-  options: {
-    type: Object,
-    required: false,
-  },
+  itemDescription: String,
+  showPopup: Boolean,
+  qtdd: Number,
+  question: String,
+  options: Array,
   item: {
     type: Object,
     required: false,
@@ -41,61 +23,48 @@ const emit = defineEmits(["close", "update:showPopup"]);
 const selectedOptionId = ref(null);
 const isCorrect = ref(null);
 
-const questionData = ref(getRandomQuestion()); 
+const questionData = ref(getRandomQuestion());
 
-watch(() => props.showPopup, (newVal) => {
-  console.log("showPopup changed:", newVal); 
-  if (newVal) {
-    questionData.value = getRandomQuestion(); 
-    selectedOptionId.value = null;
-    isCorrect.value = null;
-    console.log("Nova questão:", questionData.value); 
+watch(
+  () => props.showPopup,
+  (newVal) => {
+    if (newVal) {
+      questionData.value = getRandomQuestion();
+      selectedOptionId.value = null;
+      isCorrect.value = null;
+    }
   }
-});
+);
 
-const buttonState = ref(null); 
+const buttonState = ref(null);
 
-const selectOption = (option) => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const selectOption = async (option) => {
   selectedOptionId.value = option.id;
   isCorrect.value = option.id === questionData.value.correctOptionId;
+  buttonState.value = isCorrect.value ? "correct" : "incorrect";
 
-  console.log("Opção selecionada:", option);
-  console.log(isCorrect.value ? "Resposta correta!" : "Resposta incorreta!");
+  await delay(1000);
 
-  buttonState.value = isCorrect.value ? 'correct' : 'incorrect';
+  buttonState.value = null;
 
-  setTimeout(() => {
-    buttonState.value = null;
-  }, 1000);
-
-  setTimeout(() => {
-    if (isCorrect.value && props.item) {
-      const itemIndex = itensBanco.findIndex((item) => item.id === props.item.id);
-      if (itemIndex !== -1) {
-        itensBanco[itemIndex].coletado = true;
-        itensBanco[itemIndex].imagem = getItemImage(props.item.id);
-        console.log("Imagem: " + itensBanco[itemIndex].imagem);
-        console.log("Item coletado:", itensBanco[itemIndex].coletado);
-
-        if (inventarioRef.value) {
-          inventarioRef.value.atualizarInventario(); 
-        }
-        closePopup();
-      }
-    }
-  }, 1000);
+  if (isCorrect.value && props.item) {
+    coletarItem(props.item.id);
+    inventarioRef.value?.atualizarInventario();
+    closePopup();
+  }
 };
 
-const closePopup = () => {
-  emit("update:showPopup", false);
-};
+const closePopup = () => emit("update:showPopup", false);
 
-const similarItems = computed(() => {
-  if (!props.item) return [];
-  return itensBanco.filter(
-    (bancoItem) => bancoItem.tipo === props.item.tipo && bancoItem.id !== props.item.id
-  );
-});
+const similarItems = computed(() =>
+  props.item
+    ? itensBanco.filter(
+        (bancoItem) => bancoItem.tipo === props.item.tipo && bancoItem.id !== props.item.id
+      )
+    : []
+);
 
 </script>
 

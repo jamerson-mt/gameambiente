@@ -1,9 +1,13 @@
 <script>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import Popup from "./Popup.vue";
 import ContainerItem from "./ContainerItem.vue";
 import Inventario from "./Inventario.vue";
-import itensBanco from "../data/itensBanco";
+import itensBanco, { atualizarInventario } from "../data/itensBanco";
+
+const itensBancoReativo = ref(itensBanco);
+
+console.log(itensBancoReativo);
 
 export default {
   components: {
@@ -44,7 +48,7 @@ export default {
 
     return {
       mapa,
-      itensBanco,
+      itensBanco: itensBancoReativo,
       recolherItem,
       showPopup,
       closePopup,
@@ -79,7 +83,7 @@ export default {
     </div>
   </div>
   <ContainerItem v-model:showPopup="showPopup" :item="currentItem" />
-  <Inventario />
+  <Inventario :itens="itensBanco.value" />
 </template>
 
 <style scoped>

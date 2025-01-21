@@ -1,40 +1,47 @@
 <script setup>
-import { ref } from 'vue';
-import itensBanco, { getItemImage, atualizarInventario as atualizarInventarioBanco } from '../data/itensBanco';
+import { defineProps, ref, watch, onMounted, onUnmounted } from "vue";
+import { selectOption, atualizarInventario } from "../data/itensBanco";
 
-const inventario = ref(itensBanco.slice(0, 7));
+const props = defineProps({
+  itens: {
+    required: true,
+  },
+});
 
-function coletarItem(itemId) {
-  const item = itensBanco.find(i => i.id === itemId);
-  if (item) {
-    const index = inventario.value.findIndex(slot => slot === null);
-    if (index !== -1) {
-      inventario.value.splice(index, 1, item);
-      item.coletado = true;
-      item.imagem = getItemImage(itemId);
-      inventario.value = atualizarInventarioBanco(); // Atualiza o inventário
-    }
+const inventario = ref(props.itens);
+
+watch(props.itens, (newItens) => {
+  inventario.value = newItens;
+});
+
+function handleSelectOption(itemId) {
+  selectOption(itemId);
+  const updatedInventario = atualizarInventario();
+  if (Array.isArray(updatedInventario)) {
+    inventario.value = updatedInventario;
   }
 }
 
-function atualizarInventario() {
-  inventario.value = [...inventario.value]; 
-}
+let intervalId;
 
-defineExpose({
-  atualizarInventario
+onMounted(() => {
+  intervalId = setInterval(() => {
+    inventario.value = atualizarInventario();
+  }, 500);
 });
 
-</script>
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
+</script> 
 
 <template>
-  <div class="inventario">
-    <div v-for="(item, index) in inventario" :key="index" class="slot">
-      <img v-if="item && item.coletado" :src="item.imagem" :alt="item.nome" />
+  <div class="inventario" v-if="Array.isArray(inventario)">
+    <div v-for="(item, index) in inventario" :key="index" class="slot" @click="handleSelectOption(item.id)">
+      <img v-if="item.coletado" :src="item.imagem" :alt="item.nome" />
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .inventario {

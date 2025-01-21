@@ -9,16 +9,31 @@ const itensBanco = [
   { id: 17, nome: 'sacola plastica', imagem: 'itens/sacola plastica.png', tipo: 'plastico', coletado: false },
   { id: 18, nome: 'dinheiro', imagem: 'itens/dinheiro.png', tipo: 'papel', coletado: false },
   { id: 19, nome: 'Anel', imagem: 'itens/pilha.png', tipo: 'metal', coletado: false },
-  { id: 20, nome: 'Colar', imagem: 'itens/pilha.png', tipo: 'metal', coletado: false }
+  { id: 20, nome: 'Colar', imagem: 'itens/pilha.png', tipo: 'metal', coletado: false },
 ];
 
-export default itensBanco;
-
-export const getItemImage = (itemId) => {
+export function getItemImage(itemId) {
   const item = itensBanco.find(i => i.id === itemId);
   return item ? item.imagem : null;
-};
+}
 
-export const atualizarInventario = () => {
+export function coletarItem(itemId) {
+  const item = itensBanco.find(i => i.id === itemId);
+  if (item) {
+    item.coletado = true;
+    item.imagem = getItemImage(itemId);
+  }
+}
+
+export function selectOption(itemId) {
+  const item = itensBanco.find(i => i.id === itemId);
+  if (item) {
+    item.coletado = !item.coletado;
+  }
+}
+
+export function atualizarInventario() {
   return itensBanco.filter(item => item.coletado);
-};
+}
+
+export default itensBanco;
