@@ -87,7 +87,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(10, 80px);
   width: 800px;
-  gap: 0px; /* Adiciona espaçamento entre as células */
+  gap: 0px; 
   background-image: url("public/mapa.png");
   background-size: cover;
 }
@@ -112,7 +112,7 @@ export default {
 }
 .cell.agua {
   background-color: rgb(13, 218, 207);
-  color: black; /* Ajusta a cor do texto para melhor contraste */
+  color: black; 
 }
 
 .item-imagem {

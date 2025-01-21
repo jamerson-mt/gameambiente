@@ -1,3 +1,32 @@
+<script setup>
+import { ref } from 'vue';
+import itensBanco, { getItemImage, atualizarInventario as atualizarInventarioBanco } from '../data/itensBanco';
+
+const inventario = ref(itensBanco.slice(0, 7));
+
+function coletarItem(itemId) {
+  const item = itensBanco.find(i => i.id === itemId);
+  if (item) {
+    const index = inventario.value.findIndex(slot => slot === null);
+    if (index !== -1) {
+      inventario.value.splice(index, 1, item);
+      item.coletado = true;
+      item.imagem = getItemImage(itemId);
+      inventario.value = atualizarInventarioBanco(); // Atualiza o inventário
+    }
+  }
+}
+
+function atualizarInventario() {
+  inventario.value = [...inventario.value]; 
+}
+
+defineExpose({
+  atualizarInventario
+});
+
+</script>
+
 <template>
   <div class="inventario">
     <div v-for="(item, index) in inventario" :key="index" class="slot">
@@ -6,29 +35,6 @@
   </div>
 </template>
 
-<script>
-import itensBanco from '../data/itensBanco';
-
-export default {
-  data() {
-    return {
-      inventario: itensBanco.slice(0, 7) // Inicializa o inventário com os primeiros 7 itens do itensBanco
-    };
-  },
-  methods: {
-    coletarItem(itemId) {
-      const item = itensBanco.find(i => i.id === itemId);
-      if (item) {
-        const index = this.inventario.findIndex(slot => slot === null);
-        if (index !== -1) {
-          this.inventario.splice(index, 1, item);
-          item.coletado = true; // Marca o item como coletado
-        }
-      }
-    }
-  }
-};
-</script>
 
 <style scoped>
 .inventario {

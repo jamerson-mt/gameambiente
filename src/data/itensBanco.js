@@ -13,3 +13,12 @@ const itensBanco = [
 ];
 
 export default itensBanco;
+
+export const getItemImage = (itemId) => {
+  const item = itensBanco.find(i => i.id === itemId);
+  return item ? item.imagem : null;
+};
+
+export const atualizarInventario = () => {
+  return itensBanco.filter(item => item.coletado);
+};
