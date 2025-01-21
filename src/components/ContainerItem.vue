@@ -8,7 +8,7 @@ const inventarioRef = ref(null);
 
 const props = defineProps({
   itemDescription: String,
-  showPopup: Boolean,
+  showPopupItem: Boolean,
   qtdd: Number,
   question: String,
   options: Array,
@@ -19,14 +19,14 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["close", "update:showPopup"]);
+const emit = defineEmits(["close", "update:showPopupItem"]);
 const selectedOptionId = ref(null);
 const isCorrect = ref(null);
 
 const questionData = ref(getRandomQuestion());
 
 watch(
-  () => props.showPopup,
+  () => props.showPopupItem,
   (newVal) => {
     if (newVal) {
       questionData.value = getRandomQuestion();
@@ -56,7 +56,7 @@ const selectOption = async (option) => {
   }
 };
 
-const closePopup = () => emit("update:showPopup", false);
+const closePopup = () => emit("update:showPopupItem", false);
 
 const similarItems = computed(() =>
   props.item
@@ -70,7 +70,7 @@ const similarItems = computed(() =>
 
 <template>
   <div>
-    <div class="container" v-if="props.showPopup">
+    <div class="container" v-if="props.showPopupItem">
       <div class="content">
         <div class="descricao-item" v-if="props.item">
           <img :src="'../../' + props.item.imagem" alt="Item" />
