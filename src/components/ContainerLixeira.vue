@@ -59,7 +59,7 @@ const selectOption = async (option) => {
 
 const closePopup = () => emit("update:showPopupLixeira", false);
 
-const slots = ref([]); // Adiciona um array para armazenar os itens nos slots
+const slots = ref([]); 
 
 const addItemToSlot = () => {
   const coletados = itensBanco.filter(
@@ -70,7 +70,7 @@ const addItemToSlot = () => {
     if (slots.value.length < 5) {
       slots.value.push(item);
       guardarItemNaLixeira(props.item.id, item.id);
-      item.coletado = false; // Remove o item do inventário
+      item.coletado = false; 
     }
   });
 };
@@ -90,13 +90,12 @@ const addItemToSlot = () => {
           </div>
           <button class="close-button" @click="closePopup">X</button>
         </div>
-        <!-- Adiciona slots para itens coletados -->
         <div class="slots">
           <div v-for="(slot, index) in slots" :key="index" class="slot">
             <img v-if="slot && slot.tipo === props.item.tipo" :src="'../../' + slot.imagem" alt="Item" />
           </div>
         </div>
-        <button @click="addItemToSlot()" v-if="itensBanco">Guardar</button>
+        <button class="guardar" @click="addItemToSlot()" v-if="itensBanco">Guardar</button>
       </div>
     </div>
   </div>
@@ -232,6 +231,27 @@ img {
   font-weight: bold;
   border: none;
   font-size: 0.98rem;
+}
+
+.slots {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px 10px;
+}
+
+.guardar{
+  position: relative;
+  left: 15%;
+  margin: 5px;
+  background-color: #369046;
+  color: #e1e2e1;
+  font-size: large;
+  width: 70%;
+  height: 2.3rem;
+  border-radius: 20px;
+  opacity: 1;
+  font-weight: bold;
 }
 
 .lixeira {
