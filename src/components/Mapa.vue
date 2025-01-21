@@ -92,7 +92,7 @@ export default {
   grid-template-columns: repeat(10, 80px);
   width: 800px;
   gap: 0px; 
-  background-image: url("public/mapa.png");
+  background-image: url("public/map2.gif");
   background-size: cover;
 }
 .row {
@@ -106,7 +106,6 @@ export default {
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
-
 }
 .cell.grama {
   background-color: green;
