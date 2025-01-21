@@ -8,8 +8,6 @@ const itensBanco = [
   { id: 16, nome: 'casca de banana', imagem: 'itens/cascadebanana.png', tipo: 'organico', coletado: false },
   { id: 17, nome: 'sacola plastica', imagem: 'itens/sacola plastica.png', tipo: 'plastico', coletado: false },
   { id: 18, nome: 'dinheiro', imagem: 'itens/dinheiro.png', tipo: 'papel', coletado: false },
-  { id: 19, nome: 'Anel', imagem: 'itens/pilha.png', tipo: 'metal', coletado: false },
-  { id: 20, nome: 'Colar', imagem: 'itens/pilha.png', tipo: 'metal', coletado: false },
 ];
 
 export function getItemImage(itemId) {
