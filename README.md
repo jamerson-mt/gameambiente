@@ -3,6 +3,11 @@
 ## Descrição
 Game Ambiental é um jogo educativo focado em conscientizar os jogadores sobre a importância da preservação ambiental. O jogo apresenta diversos desafios e atividades que ensinam práticas sustentáveis e a importância da conservação dos recursos naturais.
 
+## Pré-requisitos
+Certifique-se de ter as seguintes ferramentas instaladas em seu sistema:
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+
 ## Instalação
 Para instalar e rodar o projeto localmente, siga os passos abaixo:
 
@@ -22,7 +27,7 @@ Para instalar e rodar o projeto localmente, siga os passos abaixo:
 ## Uso
 Para iniciar o jogo, execute o comando:
 ```bash
-npm start
+npm run dev
 ```
 O jogo estará disponível em `http://localhost:3000`.
 
