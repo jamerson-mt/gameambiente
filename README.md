@@ -1,30 +1,48 @@
-# gameambiental
+# Game Ambiental
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descrição
+Game Ambiental é um jogo educativo focado em conscientizar os jogadores sobre a importância da preservação ambiental. O jogo apresenta diversos desafios e atividades que ensinam práticas sustentáveis e a importância da conservação dos recursos naturais.
 
-## Recommended IDE Setup
+## Instalação
+Para instalar e rodar o projeto localmente, siga os passos abaixo:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/seu-usuario/gameambiental.git
+    ```
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd gameambiental
+    ```
+3. Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## Uso
+Para iniciar o jogo, execute o comando:
+```bash
+npm start
 ```
+O jogo estará disponível em `http://localhost:3000`.
 
-### Compile and Hot-Reload for Development
+## Contribuição
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 
-```sh
-npm run dev
-```
+1. Faça um fork do projeto.
+2. Crie uma branch para sua feature:
+    ```bash
+    git checkout -b minha-feature
+    ```
+3. Commit suas mudanças:
+    ```bash
+    git commit -m 'Adiciona minha feature'
+    ```
+4. Faça o push para a branch:
+    ```bash
+    git push origin minha-feature
+    ```
+5. Abra um Pull Request.
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-# gameambiente
+## Licença
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
