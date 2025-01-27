@@ -78,6 +78,7 @@ export default {
       if (itemIndex !== -1) {
         currentItem.value = itensBanco[itemIndex];
 
+        currentItem.value = item
         showPopupItem.value = true;
      
       }

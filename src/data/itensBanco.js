@@ -26,8 +26,9 @@ export function coletarItem(item2) {
   console.log(item2);
   const item = itensBanco.find(i => i.id === item2.valor);
   if (item) {
-    itensBanco[item.valor].coletado = true;
-    itensBanco[item.valor].imagem = getItemImage(item.valor);
+    item.coletado = true;
+    item.imagem = getItemImage(item2.valor);
+    mapa.value[item2.row][item2.col] = 0;
   }
 
  
