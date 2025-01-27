@@ -49,8 +49,8 @@ const selectOption = async (option) => {
 
   buttonState.value = null;
 
-  if (isCorrect.value && props.item) {
-    coletarItem(props.item.id);
+  if (isCorrect.value) {
+    coletarItem(props.item);
     inventarioRef.value?.atualizarInventario();
     closePopup();
   }

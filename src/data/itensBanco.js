@@ -1,3 +1,5 @@
+import mapa from "@/utils/mapa";
+
 export const itensBanco = [
   { id: 10, nome: 'cadeira', imagem: 'itens/cadeira.png', tipo: 'plastico', coletado: true },
   { id: 11, nome: 'garrafa de plastico', imagem: 'itens/garrafaplastica.png', tipo: 'plastico', coletado: true },
@@ -20,12 +22,15 @@ export function getItemImage(itemId) {
   return item ? item.imagem : null;
 }
 
-export function coletarItem(itemId) {
-  const item = itensBanco.find(i => i.id === itemId);
+export function coletarItem(item2) {
+  console.log(item2);
+  const item = itensBanco.find(i => i.id === item2.valor);
   if (item) {
-    item.coletado = true;
-    item.imagem = getItemImage(itemId);
+    itensBanco[item.valor].coletado = true;
+    itensBanco[item.valor].imagem = getItemImage(item.valor);
   }
+
+ 
 }
 
 export function selectOption(itemId) {
