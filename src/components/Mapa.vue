@@ -71,8 +71,7 @@ export default {
     };
 
     const ativarContainerItem = (item) => {
-      console.log(showPopupItem.value);
-      console.log(item.valor);
+      
       const itemIndex = itensBanco.findIndex((i) => i.id === item.valor);
     
       if (itemIndex !== -1) {

@@ -2,10 +2,8 @@ import mapa, { atualizarPosicaoBoneco } from './mapa.js';
 
 function colisao(newRow, newColumn) {
     if (newRow < 0 || newColumn < 0 || newRow >= 40 || newColumn >= 40) {
-        alert('parede');
         return true;
     } else if (mapa.value[newRow][newColumn] >= 10 && mapa.value[newRow][newColumn] <= 19 ) {
-        alert('bateu em algum obstaculo!');
         let item = {valor : mapa.value[newRow][newColumn], row: newRow, col: newColumn};
         return item;
     }

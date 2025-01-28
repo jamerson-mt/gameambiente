@@ -31,7 +31,7 @@ export function coletarItem(item2) {
     mapa.value[item2.row][item2.col] = 0;
   }
 
- 
+
 }
 
 export function selectOption(itemId) {
