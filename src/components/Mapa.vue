@@ -16,12 +16,17 @@ export default {
     Inventario,
   },
   setup() {
-
     const itensBancoReativo = ref(itensBanco);
     const showPopupItem = ref(false);
     const showPopupLixeira = ref(false);
     const currentItem = ref(null);
-    const position = ref({ row: 10, col: 10, direction: "", lastDirection: "", lastPosition: { row: 10, col: 10 } });
+    const position = ref({
+      row: 10,
+      col: 10,
+      direction: "",
+      lastDirection: "",
+      lastPosition: { row: 10, col: 10 },
+    });
 
     const recolherItem = (row, col) => {
       const itemId = mapa.value[row][col];
@@ -55,13 +60,11 @@ export default {
       mapa.value.forEach((row, rowIndex) => {
         row.forEach((cell, colIndex) => {
           const itemIndex = itensBancoReativo.value.findIndex((item) => item.id === cell);
-         
         });
-      }); 
+      });
     };
 
     const handleKeydown = (event) => {
-
       const item = moviment(event, position);
       if (item.valor) {
         ativarContainerItem(item);
@@ -71,24 +74,29 @@ export default {
     };
 
     const ativarContainerItem = (item) => {
-      
       const itemIndex = itensBanco.findIndex((i) => i.id === item.valor);
-    
       if (itemIndex !== -1) {
         currentItem.value = itensBanco[itemIndex];
-
-        currentItem.value = item
+      }
+      if (item.valor >= 10 && item.valor <= 19) {
+        
+      
+        showPopupLixeira.value = false;
         showPopupItem.value = true;
-     
+      
+      } else if (item.valor >= 20 && item.valor <= 25) {
+        
+        showPopupItem.value = false;
+        showPopupLixeira.value = true;
       }
     };
 
     onMounted(() => {
-      window.addEventListener('keydown', handleKeydown);
+      window.addEventListener("keydown", handleKeydown);
     });
 
     onBeforeUnmount(() => {
-      window.removeEventListener('keydown', handleKeydown);
+      window.removeEventListener("keydown", handleKeydown);
     });
 
     return {
@@ -112,17 +120,26 @@ export default {
 <template>
   <div class="mapa">
     <div v-for="(row, rowIndex) in mapa" :key="rowIndex" class="row">
-      <div v-for="(cell, colIndex) in row" :key="colIndex" class="cell" :class="{
-        null: cell === 0,
-        grama: cell === 3,
-        agua: cell === 2,
-        boneco: cell === 99,
+      <div
+        v-for="(cell, colIndex) in row"
+        :key="colIndex"
+        class="cell"
+        :class="{
+          null: cell === 0,
+          grama: cell === 3,
+          agua: cell === 2,
+          boneco: cell === 99,
 
-        item: itensBanco.some((item) => item.id === cell && !item.coletado),
-      }" @click="recolherItem(rowIndex, colIndex)">
-        <img v-if="itensBanco.some((item) => item.id === cell && !item.coletado)"
+          item: itensBanco.some((item) => item.id === cell && !item.coletado),
+        }"
+        @click="recolherItem(rowIndex, colIndex)"
+      >
+        <img
+          v-if="itensBanco.some((item) => item.id === cell && !item.coletado)"
           :src="itensBanco.find((item) => item.id === cell && !item.coletado).imagem"
-          :alt="itensBanco.find((item) => item.id === cell && !item.coletado).nome" class="item-imagem" />
+          :alt="itensBanco.find((item) => item.id === cell && !item.coletado).nome"
+          class="item-imagem"
+        />
       </div>
     </div>
   </div>
@@ -141,6 +158,7 @@ export default {
   padding: 0px;
   margin: 0px;
   flex-direction: column-reverse;
+  z-index: 1;
   /* Adicione esta linha */
 }
 
@@ -167,8 +185,6 @@ export default {
   background-image: url("public/tiles/moita.svg");
 }
 
-
-
 .cell.agua {
   background-color: rgb(0, 218, 207);
   color: black;
@@ -184,7 +200,6 @@ export default {
 .cell.lixeira {
   width: 20px;
   height: 20px;
-
 }
 
 .cell.boneco {

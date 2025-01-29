@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits, computed, watch } from "vue";
+import { ref, defineProps, defineEmits, computed, watch, onMounted } from "vue";
 import itensBanco, { getItemImage, coletarItem } from "../data/itensBanco";
 import { getRandomQuestion } from "../data/questions";
 import Inventario from "./Inventario.vue";
@@ -23,6 +23,9 @@ const emit = defineEmits(["close", "update:showPopupItem"]);
 const selectedOptionId = ref(null);
 const isCorrect = ref(null);
 
+if (props.item && props.item.valor) {
+  props.item.valor = itensBanco[props.item.valor];  
+}
 const questionData = ref(getRandomQuestion());
 
 watch(
@@ -50,7 +53,10 @@ const selectOption = async (option) => {
   buttonState.value = null;
 
   if (isCorrect.value) {
-    coletarItem(props.item);
+    const itemIndex = itensBanco.findIndex((i) => i.id === props.item.valor);
+    if (itemIndex !== -1) {
+      coletarItem(itensBanco[itemIndex]);
+    }
     inventarioRef.value?.atualizarInventario();
     closePopup();
   }
@@ -66,6 +72,8 @@ const similarItems = computed(() =>
     : []
 );
 
+
+
 </script>
 
 <template>
@@ -80,6 +88,7 @@ const similarItems = computed(() =>
           </div>
           <button class="close-button" @click="closePopup">X</button>
         </div>
+      
 
         <div class="question" v-if="questionData">
           <b>{{ questionData.question }}</b>
@@ -113,7 +122,7 @@ const similarItems = computed(() =>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .container {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
@@ -123,6 +132,7 @@ const similarItems = computed(() =>
   justify-content: center;
   align-items: center;
   color: #242424;
+  z-index: 100;
 }
 
 .content {

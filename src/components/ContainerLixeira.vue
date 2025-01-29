@@ -83,7 +83,7 @@ const addItemToSlot = () => {
     <div class="container" v-if="props.showPopupLixeira">
       <div class="content">
         <div class="descricao-lixeira" v-if="props.item">
-          <img :src="'../../' + props.item.imagem" alt="Lixeira" />
+          <img :src="'../' + props.item.imagem" alt="Lixeira" />
           <div class="descricao-lixeira-text">
             <h2>{{ props.item.nome }}</h2>
             <p>{{ props.item.descricao }}</p>
@@ -92,7 +92,7 @@ const addItemToSlot = () => {
         </div>
         <div class="slots">
           <div v-for="(slot, index) in slots" :key="index" class="slot">
-            <img v-if="slot && slot.tipo === props.item.tipo" :src="'../../' + slot.imagem" alt="Item" />
+            <img v-if="slot && slot.tipo === props.item.tipo" :src="'../' + slot.imagem" alt="Item" />
           </div>
         </div>
         <button class="guardar" @click="addItemToSlot()" v-if="itensBanco">Guardar</button>
@@ -105,7 +105,7 @@ const addItemToSlot = () => {
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 .container {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
@@ -115,6 +115,7 @@ const addItemToSlot = () => {
   justify-content: center;
   align-items: center;
   color: #242424;
+  z-index: 100;
 }
 
 .content {

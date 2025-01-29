@@ -8,6 +8,9 @@ function colisao(newRow, newColumn) {
     } else if (mapa.value[newRow][newColumn] >= 10 && mapa.value[newRow][newColumn] <= 19 ) {
         let item = {valor : mapa.value[newRow][newColumn], row: newRow, col: newColumn};
         return item;
+    }else if(mapa.value[newRow][newColumn] >= 20 && mapa.value[newRow][newColumn] <= 24){
+        let item = {valor : mapa.value[newRow][newColumn], row: newRow, col: newColumn};
+        return item;
     }
     return false;
 }
