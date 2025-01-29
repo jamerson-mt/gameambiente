@@ -66,7 +66,11 @@ export default {
 
     const handleKeydown = (event) => {
       const item = moviment(event, position);
-      if (item.valor) {
+     
+
+      if (!item) {
+        return 
+      }else{
         ativarContainerItem(item);
       }
       //verificarItensColetados();
@@ -204,9 +208,11 @@ export default {
 
 .cell.boneco {
   position: absolute;
+  background-image: url("public/personagem/w1.svg");
   width: 20px;
   height: 20px;
-  background-color: red;
   position: relative;
 }
+
+
 </style>

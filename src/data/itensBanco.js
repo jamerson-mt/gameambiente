@@ -15,6 +15,7 @@ export const itensBanco = [
   { id: 21, nome: 'lixeira de plastico', imagem: 'tiles/lixeiradeplastico.svg', tipo: 'plastico', coletado: false, itensGuardados: [] },
   { id: 22, nome: 'lixeira de papel', imagem: 'tiles/lixeiradepapel.svg', tipo: 'papel', coletado: false, itensGuardados: [] },
   { id: 23, nome: 'lixeira de vidro', imagem: 'tiles/lixeiradevidro.svg', tipo: 'vidro', coletado: false, itensGuardados: [] },
+  { id: 99, nome: 'boneco', imagem: 'public/personagem/w1.svg', tipo: 'personagem', coletado: false },
 ];
 
 export function getItemImage(itemId) {
@@ -30,8 +31,6 @@ export function coletarItem(item2) {
     item.imagem = getItemImage(item2.valor);
     mapa.value[item2.row][item2.col] = 0;
   }
-
-
 }
 
 export function selectOption(itemId) {
