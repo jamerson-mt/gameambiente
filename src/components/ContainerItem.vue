@@ -53,7 +53,7 @@ const selectOption = async (option) => {
   buttonState.value = null;
 
   if (isCorrect.value) {
-    const itemIndex = itensBanco.findIndex((i) => i.id === props.item.valor);
+    const itemIndex = itensBanco.findIndex((i) => i.id === props.item.id);
     if (itemIndex !== -1) {
       coletarItem(itensBanco[itemIndex]);
     }
