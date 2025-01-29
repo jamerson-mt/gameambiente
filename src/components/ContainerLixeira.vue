@@ -7,6 +7,7 @@ import {
   itensBanco,
 } from "../data/itensBanco";
 import { getRandomQuestion } from "../data/questions";
+import { mapa } from "../utils/mapa"; // Importar o array mapa
 
 const props = defineProps({
   lixeira: {
@@ -61,18 +62,42 @@ const closePopup = () => emit("update:showPopupLixeira", false);
 
 const slots = ref([]); 
 
+const checkEndGame = () => {
+  const hasValidItems = true;
+  for (let i = 0; i < mapa.value.length; i++) {
+    for (let j = 0; j < mapa.value[i].length; j++) {
+      if (mapa.value[i][j] >=10 && mapa.value[i][j] <= 19) {
+        hasValidItems = false;
+        return hasValidItems;
+      }
+    }
+    if (!hasValidItems) {
+      closePopup();
+      alert("Fim de jogo!"); // Exibir popup de fim de jogo
+   
+    }
+  }
+};
+
 const addItemToSlot = () => {
   const coletados = itensBanco.filter(
     (iten) => iten.coletado && iten.tipo === props.item.tipo
   );
 
   coletados.forEach((item) => {
-    if (slots.value.length < 5) {
+    if (slots.value.length < 10 && item.tipo === props.item.tipo) { // Aumenta o limite de slots para 10
       slots.value.push(item);
       guardarItemNaLixeira(props.item.id, item.id);
       item.coletado = false; 
+    } else {
+      console.log(slots.value.length);
+      console.log(item.tipo);
+      console.log(props.item.tipo);
+      console.log('Você não pode guardar mais itens do tipo papel');
     }
   });
+
+  checkEndGame(); // Verificar se o jogo deve ser encerrado
 };
 
 

@@ -1,4 +1,4 @@
-import mapa from "@/utils/mapa";
+import mapa, { verificarItensColetados } from "@/utils/mapa";
 
 export const itensBanco = [
   { id: 10, nome: 'cadeira', imagem: 'itens/cadeira.png', tipo: 'plastico', coletado: true },
@@ -25,12 +25,13 @@ export function getItemImage(itemId) {
 
 export function coletarItem(item2) {
   console.log(item2);
-  const item = itensBanco.find(i => i.id === item2.valor);
+  const item = itensBanco.find(i => i.id === item2.id);
   if (item) {
     item.coletado = true;
-    item.imagem = getItemImage(item2.valor);
-    mapa.value[item2.row][item2.col] = 0;
+    item.imagem = getItemImage(item2.id);
+    verificarItensColetados(itensBanco);
   }
+ 
 }
 
 export function selectOption(itemId) {
