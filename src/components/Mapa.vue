@@ -114,7 +114,7 @@ export default {
     <div v-for="(row, rowIndex) in mapa" :key="rowIndex" class="row">
       <div v-for="(cell, colIndex) in row" :key="colIndex" class="cell" :class="{
         null: cell === 0,
-        pista: cell === 1,
+        grama: cell === 3,
         agua: cell === 2,
         boneco: cell === 99,
 
@@ -134,10 +134,10 @@ export default {
 <style scoped>
 .mapa {
   display: grid;
-  grid-template-columns: repeat(40, 20px);
+  grid-template-columns: repeat(20, 20px);
   gap: 0px;
-  background-image: url("public/map2.gif");
   background-size: cover;
+  background-image: url("public/mapa/praia.jpg");
   padding: 0px;
   margin: 0px;
   flex-direction: column-reverse;
@@ -150,6 +150,7 @@ export default {
 
 .cell {
   width: 20px;
+  position: relative;
   background-color: transparent;
   border: 0px solid black;
   height: 20px;
@@ -158,15 +159,15 @@ export default {
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
+  border: 1px solid transparent;
+  z-index: 10;
 }
 
 .cell.grama {
-  background-color: green;
+  background-image: url("public/tiles/moita.svg");
 }
 
-.cell.pista {
-  background-color: gray;
-}
+
 
 .cell.agua {
   background-color: rgb(0, 218, 207);
@@ -174,21 +175,23 @@ export default {
 }
 
 .item-imagem {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
 
   cursor: pointer;
 }
 
 .cell.lixeira {
-  width: 80px;
-  height: 80px;
+  width: 20px;
+  height: 20px;
 
 }
 
 .cell.boneco {
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
   background-color: red;
+  position: relative;
 }
 </style>

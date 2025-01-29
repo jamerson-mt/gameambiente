@@ -3,6 +3,8 @@ import mapa, { atualizarPosicaoBoneco } from './mapa.js';
 function colisao(newRow, newColumn) {
     if (newRow < 0 || newColumn < 0 || newRow >= 40 || newColumn >= 40) {
         return true;
+    }else if(mapa.value[newRow][newColumn] == 1 ){
+        return true;
     } else if (mapa.value[newRow][newColumn] >= 10 && mapa.value[newRow][newColumn] <= 19 ) {
         let item = {valor : mapa.value[newRow][newColumn], row: newRow, col: newColumn};
         return item;

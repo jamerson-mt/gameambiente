@@ -11,10 +11,10 @@ export const itensBanco = [
   { id: 17, nome: 'sacola plastica', imagem: 'itens/sacola plastica.png', tipo: 'plastico', coletado: false },
   { id: 18, nome: 'dinheiro', imagem: 'itens/dinheiro.png', tipo: 'papel', coletado: false },
 
-  { id: 20, nome: 'lixeira organica', imagem: 'lixeira-marrom.png', tipo: 'organico', coletado: false, itensGuardados: [] },
-  { id: 21, nome: 'lixeira de plastico', imagem: 'lixeira-vermelha.png', tipo: 'plastico', coletado: false, itensGuardados: [] },
-  { id: 22, nome: 'lixeira de papel', imagem: 'lixeira-azul.png', tipo: 'papel', coletado: false, itensGuardados: [] },
-  { id: 23, nome: 'lixeira de vidro', imagem: 'lixeira-verde.png', tipo: 'vidro', coletado: false, itensGuardados: [] },
+  { id: 20, nome: 'lixeira organica', imagem: 'tiles/lixeiradeorganico.svg', tipo: 'organico', coletado: false, itensGuardados: [] },
+  { id: 21, nome: 'lixeira de plastico', imagem: 'tiles/lixeiradeplastico.svg', tipo: 'plastico', coletado: false, itensGuardados: [] },
+  { id: 22, nome: 'lixeira de papel', imagem: 'tiles/lixeiradepapel.svg', tipo: 'papel', coletado: false, itensGuardados: [] },
+  { id: 23, nome: 'lixeira de vidro', imagem: 'tiles/lixeiradevidro.svg', tipo: 'vidro', coletado: false, itensGuardados: [] },
 ];
 
 export function getItemImage(itemId) {
