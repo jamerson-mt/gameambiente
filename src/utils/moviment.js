@@ -17,7 +17,7 @@ function atualizarSprite(direcao) {
             c = 1;
             oldDirecao = direcao;
         }
-        bonecoItem.imagem = `public/personagem/${direcao}${c}.svg`;
+        bonecoItem.imagem = `personagem/${direcao}${c}.svg`;
     }
 }
 
