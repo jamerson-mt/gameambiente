@@ -63,7 +63,7 @@ const closePopup = () => emit("update:showPopupLixeira", false);
 const slots = ref([]); 
 
 const checkEndGame = () => {
-  const hasValidItems = true;
+  let hasValidItems = true;
   for (let i = 0; i < mapa.value.length; i++) {
     for (let j = 0; j < mapa.value[i].length; j++) {
       if (mapa.value[i][j] >=10 && mapa.value[i][j] <= 19) {
