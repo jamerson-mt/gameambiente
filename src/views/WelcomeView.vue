@@ -25,7 +25,7 @@ export default {
 <template>
     <div class="welcome-container">
         <div class="overlay"></div>
-        <h1>GEME SUSTENTABILIDADE</h1>
+        <h1>GAME SUSTENTABILIDADE</h1>
         <h2>Nos ajude a coletar os materiais e colocá-los em seus devidos lugares</h2>
         <div class="gameboy-container">
             <RouterLink to="/start" class="start-link gameboy-button">

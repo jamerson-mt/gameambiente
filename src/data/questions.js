@@ -62,18 +62,6 @@ const questions = [
     },
     {
       "id": 6,
-      "question": "Indique uma vantagem da energia solar",
-      "options": [
-        { "id": 1, "text": "Não é renovável" },
-        { "id": 2, "text": "Não polui" },
-        { "id": 3, "text": "É eficaz em qualquer clima" },
-        { "id": 4, "text": "É disponível a todo momento" }
-      ],
-      "correctOptionId": 1,
-      "image": "../../public/lixeira-marrom.png"
-    },
-    {
-      "id": 7,
       "question": "Qual estratégia é mais eficaz na conservação de espécies ameaçadas?",
       "options": [
         { "id": 1, "text": "Caçar" },
