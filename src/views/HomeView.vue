@@ -1,5 +1,6 @@
 <script setup>
 import Mapa from '@/components/Mapa.vue'
+import PersoWelcome from '@/components/PersoWelcome.vue'
 </script>
 
 <template>

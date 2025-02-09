@@ -163,7 +163,6 @@ export default {
   margin: 0px;
   flex-direction: column-reverse;
   z-index: 1;
-  /* Adicione esta linha */
 }
 
 .row {

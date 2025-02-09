@@ -1,7 +1,10 @@
-<script>
+<script setup>
 import { RouterLink } from 'vue-router';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
+import PersoWelcome from '@/components/PersoWelcome.vue';
+
+import asunaImg from '@/assets/personagens/per2.gif';
 
 const isPressed = ref(false);
 
@@ -12,26 +15,38 @@ const pressButton = () => {
   }, 100);
 };
 
-export default {
-  setup() {
-    onMounted(() => {
-      const audio = new Audio('/musics/music1.mp3');
-      audio.play();
-    });
-  },
-};
+  onMounted(() => {
+    const audio = new Audio('/musics/music1.mp3');
+    audio.play();
+  });
 </script>
 
 <template>
     <div class="welcome-container">
         <div class="overlay"></div>
-        <h1>GAME SUSTENTABILIDADE</h1>
-        <h2>Nos ajude a coletar os materiais e colocá-los em seus devidos lugares</h2>
-        <div class="gameboy-container">
-            <RouterLink to="/start" class="start-link gameboy-button">
-                Iniciar
-                <span class="glow"></span>
-            </RouterLink>
+
+        <div class="content">
+            <h1>GAME AMBIENTE</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="options">
+              <RouterLink to="/start" class="start-link gameboy-button" @click="pressButton">
+                Continuar
+                <span class="glow" :class="{ active: isPressed }"></span>
+              </RouterLink>
+              <RouterLink to="/start" class="start-link gameboy-button" @click="pressButton">
+                Novo Jogo
+                <span class="glow" :class="{ active: isPressed }"></span>
+              </RouterLink>
+              <RouterLink to="/personagens" class="start-link gameboy-button" @click="pressButton">
+                Personagens
+                <span class="glow" :class="{ active: isPressed }"></span>
+              </RouterLink>
+            </div>
+            <div class="personagem">
+                <PersoWelcome :image="asunaImg" />
+            </div>
         </div>
     </div>
 </template>
@@ -41,18 +56,51 @@ export default {
 
 .welcome-container {
     position: relative;
-    background-image: url('@/assets/floresta.jpg');
+    background-image: url('@/assets/fundo-floresta.png');
     background-size: cover;
     background-position: center;
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     color: white;
     font-family: 'Pixelify Sans', sans-serif;
+    margin: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.personagem {
+    width: 30%;
+    margin: 0 auto;
+    position: relative;
+    top: -3rem;
+    z-index: 3; 
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 2rem;
+}
+
+h1, h2 {
+    flex-grow: 1;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
 .overlay {
@@ -92,7 +140,6 @@ h2 {
     justify-content: center;
     font-size: 1.5em;
     cursor: pointer;
-    border-radius: 2rem;
     text-decoration: none;
     color: black;
     margin-top: 1em;
@@ -113,14 +160,13 @@ h2 {
   color: #0f380f;
   background-color: #ccbf07;
   border: 2px solid #0f380f;
-  border-radius: 2rem;
   color: rgb(14, 14, 14);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .gameboy-button:hover {
-    background-color: #9bbc0f;
+    background-color: #6c8306;
 }
 
 .gameboy-button:active {

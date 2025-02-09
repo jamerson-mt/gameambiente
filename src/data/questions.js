@@ -50,18 +50,6 @@ const questions = [
     },
     {
       "id": 5,
-      "question": "Qual dos elementos abaixo não é utilizado como fonte de energia?",
-      "options": [
-        { "id": 1, "text": "Água corrente" },
-        { "id": 2, "text": "Petróleo" },
-        { "id": 3, "text": "Barra de Ferro" },
-        { "id": 4, "text": "Sol" }
-      ],
-      "correctOptionId": 3,
-      "image": "../../public/lixeira-marrom.png"
-    },
-    {
-      "id": 6,
       "question": "Qual estratégia é mais eficaz na conservação de espécies ameaçadas?",
       "options": [
         { "id": 1, "text": "Caçar" },
